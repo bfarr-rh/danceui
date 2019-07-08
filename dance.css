@@ -1,0 +1,78 @@
+html, body {
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+    background-color:#d2d3d5;
+}
+.table {
+    display:table;
+    border:0px solid #000;
+    float:left;
+    justify-content: center;
+}
+.row {
+    display:table-row;
+    align-content:center;
+}
+.cell1, .cell2, .cell3 {
+    display:table-cell;
+    border:0px solid #CCC;
+    justify-content: center;
+    padding:0px;
+    margin:0px;
+    vertical-align: center;
+}
+.cell1:hover, .cell2:hover, .cell3:hover {
+    background-color: lightskyblue;
+}
+
+.spinrightbtn:hover {
+    background-color: rgb(247, 129, 129);
+}
+.spinrightbtn {
+    background-color: red;
+    width:170px;
+    height:100px;
+    color:white;
+    font-size: 25px;
+    text-align: center;
+    padding: 10px;
+    margin: auto;
+    align-self:center;
+}
+.spinleftbtn:hover {
+    background-color: lightgreen;
+}
+.spinleftbtn {
+    background-color: green;
+    width:170px;
+    height:100px;
+    color:white;
+    font-size: 25px;
+    text-align: center;
+    padding: 10px;
+    margin: auto;
+    align-self:center;
+}
+
+.trainbtn {
+    background-color:blue;
+    width:180px;
+    height:100px;
+    color:white;
+    font-size: 25px;
+    text-align: center;
+    margin: 0;
+}
+.lbl {
+    font-size: 25px;
+}
+.arrow {
+    width:128px;
+    height:96px;
+}
+.arrow-vert {
+    width:96px;
+    height:128px;
+}
