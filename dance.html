@@ -25,10 +25,25 @@
         <div style="width:100%">
             <div style="float: left;margin-left:20px;">
                 <div>
-                    <label class="lbl">1. Select a Song:</label><select class="lbl"><option>Ice Ice Baby</option></select>
+                    <label class="lbl">1. Play a Song:</label><select class="lbl"><option>Ice Ice Baby</option></select>
+                    <br/>
+                    <br/>
                 </div>
                 <div class="row">
-                    <p class="lbl" align="center" >2. Build a Dance Routine!</p>
+                    <label class="lbl">2. Model Name:</label><input id="experimentid" class="lbl" type="text" size="15"/>
+                    <br/>
+                    <label id="extraparams" class="lbl">+</label>
+                </div>
+                <div id="params" class="row">
+                    <label  class="lbl">Robot:</label><select name="robot" class="lbl"><option>MOE</option><option>SHEMP</option><option>CURLY</option></select>
+                    <br/>
+                    <label  class="lbl">Speed (1-99):</label><input id="speed" type="text" size="3" value="50" class="lbl"/><label  class="lbl">Turn Speed (1-99):</label><input id="turnspeed" type="text" size="3" value="50" class="lbl"/>
+                    <br/>
+                    <label  class="lbl">Predict Mode:</label><input id="predictmode" type="text" size="2" value="0" class="lbl"/>
+                    <button id="loadModel" class="trainbtn" >LOAD MODEL</button><button id="saveModel" class="trainbtn" >SAVE MODEL</button>
+                </div>
+                <div class="row">
+                    <p class="lbl" >3. Build a Dance Routine (>15 moves)!</p>
                 </div>
                 <div class="table" >
                         <div class="row">
@@ -55,9 +70,9 @@
                         
                 </div>
                 <div>
-                    <p class="lbl" >3. Train the Model and let ML do the work!</p>
+                    <p class="lbl" >4. Train the Model and let ML do the work!</p>
                     <div align="center">
-                    <button id="trainData" class="trainbtn">TRAIN THE MODEL!</button>
+                    <button id="trainData" class="trainbtn" disabled>TRAIN THE MODEL!</button>
                 </div>
                 </div>
             </div>
@@ -78,10 +93,37 @@
             </div>
             
         </div>
-
         
         <script>
             $(function() {
+                $("#predictmode").change(function() {
+                    predict_mode = $("#predictmode").val();
+                });
+                $("#params").hide();
+                $("#extraparams").click(function() {
+                    if ($("#params").is(":visible")) {
+                        $("#params").hide();
+                        $("#extraparams").html("+");
+                    } else {
+                        $("#params").show();
+                        $("#extraparams").html("-");
+                    }
+                   
+                });
+                $("#loadModel").click(function(){
+                    loadModel();
+                });
+                $("#saveModel").click(function(){
+                    saveModel();
+                });
+                
+
+                
+                $("#stepsBox").change(function() {
+                    $('#trainData').prop('disabled', $('#stepsBox').val().length < 1125)
+                    // Enable after approx 15 moves
+                });
+
                 $("#trainData").click(function(){
                     trainData();
                 });
@@ -92,13 +134,16 @@
                     var fft = getcurrentfft();
                     if (fft != '') {
                         $('#stepsBox').append(fft + ",-360\r"); 
+                        $("#stepsBox").change();
                         addMove(0,0,-1);
                     }
+                    
                 });
                 $("#spinright").click(function(){
                     var fft = getcurrentfft();
                     if (fft != '') {
                         $('#stepsBox').append(fft + ",360\r"); 
+                        $("#stepsBox").change();
                         addMove(0,0,1);
                     }
                 });
@@ -106,6 +151,7 @@
                     var fft = getcurrentfft();
                     if (fft != '') {
                         $('#stepsBox').append(fft + ",180\r"); 
+                        $("#stepsBox").change();
                         addMove(0,-35,0);
                     }
                 });
@@ -113,6 +159,7 @@
                     var fft = getcurrentfft();
                     if (fft != '') {
                         $('#stepsBox').append(fft + ",-90\r"); 
+                        $("#stepsBox").change();
                         addMove(-35,0,0);
                     }
                 });
@@ -120,6 +167,7 @@
                     var fft = getcurrentfft();
                     if (fft != '') {
                         $('#stepsBox').append(fft + ",90\r"); 
+                        $("#stepsBox").change();
                         addMove(35,0,0);
                     }
                 });
@@ -127,6 +175,7 @@
                     var fft = getcurrentfft();
                     if (fft != '') {
                         $('#stepsBox').append(fft + ",-180\r");
+                        $("#stepsBox").change();
                         addMove(0,35,0);
                     } 
                 });

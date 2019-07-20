@@ -65,6 +65,10 @@ html, body {
     text-align: center;
     margin: 0;
 }
+.trainbtn:disabled {
+    background: #dddddd;
+}
+
 .lbl {
     font-size: 25px;
 }

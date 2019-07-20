@@ -257,7 +257,7 @@ function predict(csv) {
   //var csv = "1142.000,230.000,239.500,197.250,166.672,124.818,65.420,48.024,26.309,0.005,0.000";
   csv = csv.replace(/\r\n/gi, '\\u0A');
   $.ajax({
-    url: 'http://localhost:8080/predict',
+    url: 'http://localhost:8080/predict?'+ jQuery.param({ experimentName: $('#experimentid').val()}),
     type: 'post',
     crossDomain: true,
     data: csv,
@@ -301,13 +301,42 @@ function trainData() {
   var csv = header + $('#stepsBox').val();
   csv = csv.replace(/\r\n/gi, '\\u0A');
   $.ajax({
-    url: 'http://localhost:8080/train',
+    url: 'http://localhost:8080/train?' + jQuery.param({ experimentName: $('#experimentid').val()}),
     type: 'post',
     crossDomain: true,
     data: csv,
     success: function( data, textStatus, jQxhr ){
        alert('Service has been trained with your dance moves!');
        predict_mode = 1;
+    },
+    error: function( jqXhr, textStatus, errorThrown ){
+        alert( errorThrown );
+    }
+});
+}
+
+function loadModel() {
+  $.ajax({
+    url: 'http://localhost:8080/loadmodel?' + jQuery.param({ experimentName: $('#experimentid').val()}),
+    type: 'post',
+    crossDomain: true,
+    success: function( data, textStatus, jQxhr ){
+       alert('Loaded model');
+       predict_mode = 1;
+    },
+    error: function( jqXhr, textStatus, errorThrown ){
+        alert( errorThrown );
+    }
+});
+}
+
+function saveModel() {
+  $.ajax({
+    url: 'http://localhost:8080/savemodel',
+    type: 'post',
+    crossDomain: true,
+    success: function( data, textStatus, jQxhr ){
+       alert('Model saved');
     },
     error: function( jqXhr, textStatus, errorThrown ){
         alert( errorThrown );
