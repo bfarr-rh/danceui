@@ -257,7 +257,7 @@ function predict(csv) {
   //var csv = "1142.000,230.000,239.500,197.250,166.672,124.818,65.420,48.024,26.309,0.005,0.000";
   csv = csv.replace(/\r\n/gi, '\\u0A');
   $.ajax({
-    url: 'http://localhost:8080/predict?'+ jQuery.param({ experimentName: $('#experimentid').val()}),
+    url: 'http://mlflow-audio-mlflow-tracking.apps.cluster-gartner-2f37.gartner-2f37.openshiftworkshop.com/predict?'+ jQuery.param({ experimentName: $('#experimentid').val()}),
     type: 'post',
     crossDomain: true,
     data: csv,
@@ -301,7 +301,7 @@ function trainData() {
   var csv = header + $('#stepsBox').val();
   csv = csv.replace(/\r\n/gi, '\\u0A');
   $.ajax({
-    url: 'http://localhost:8080/train?' + jQuery.param({ experimentName: $('#experimentid').val()}),
+    url: 'http://mlflow-audio-mlflow-tracking.apps.cluster-gartner-2f37.gartner-2f37.openshiftworkshop.com/train?' + jQuery.param({ experimentName: $('#experimentid').val()}),
     type: 'post',
     crossDomain: true,
     data: csv,
@@ -317,7 +317,7 @@ function trainData() {
 
 function loadModel() {
   $.ajax({
-    url: 'http://localhost:8080/loadmodel?' + jQuery.param({ experimentName: $('#experimentid').val()}),
+    url: 'http://mlflow-audio-mlflow-tracking.apps.cluster-gartner-2f37.gartner-2f37.openshiftworkshop.com/loadmodel?' + jQuery.param({ experimentName: $('#experimentid').val()}),
     type: 'post',
     crossDomain: true,
     success: function( data, textStatus, jQxhr ){
@@ -332,7 +332,7 @@ function loadModel() {
 
 function saveModel() {
   $.ajax({
-    url: 'http://localhost:8080/savemodel',
+    url: 'http://mlflow-audio-mlflow-tracking.apps.cluster-gartner-2f37.gartner-2f37.openshiftworkshop.com/savemodel',
     type: 'post',
     crossDomain: true,
     success: function( data, textStatus, jQxhr ){
