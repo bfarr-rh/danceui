@@ -25,7 +25,7 @@ var UP = 180;
 var DOWN = -180;
 var sampling_count = 0;
 var predict_mode = 0;
-
+var sampling_rate = 30;
 
 // save this file as sketch.js
 // Sketch One
@@ -67,7 +67,7 @@ var s = function( p5o ) { // p could be any variable name
     if (soundFile.isPlaying()){
       setCurrentFFT(groupedFrequencies);
   
-      if (predict_mode > 0  && sampling_count > 30) {
+      if (predict_mode > 0  && sampling_count > sampling_rate) {
         // now predict move
         predict(currentFft);
         sampling_count = 0;
@@ -264,7 +264,22 @@ function predict(csv) {
     success: function( data){
       var array = JSON.parse(data);
       var move = getMove(array[0]);
-      $('#fftBox').append(move + "\r");
+      //$('#fftBox').append(move + "\r");
+    }
+});
+}
+
+
+function send_to_robot(robot_move) {
+  robot_url = 'http://dance-api-robot.apps.cluster-gartner-2f37.gartner-2f37.openshiftworkshop.com/camel/move/';
+  robot_url += robot_move + '?';
+  robot_url +=  jQuery.param({ P_NAME: $('#robot').val(), P_SPEED: $('#speed').val(), P_TURN_SPEED: $('#turnspeed').val(), P_DELAY: $('#delayms').val()} );
+  $.ajax({
+    url: robot_url ,
+    type: 'post',
+    crossDomain: true,
+    success: function( data){
+      console.log(data);
     }
 });
 }
@@ -272,26 +287,32 @@ function predict(csv) {
 function getMove(value) {
   if (value < SPIN_LEFT*0.7 && value > SPIN_LEFT*1.3) {
       addMLMove(0,0,-1);
+      send_to_robot("spinleft");
       return 'SPIN LEFT:' + SPIN_LEFT;
   }
   if (value > SPIN_RIGHT*0.7 && value < SPIN_RIGHT*1.3) {
     addMLMove(0,0,1);
+    send_to_robot("spinright");
     return 'SPIN RIGHT:' + SPIN_RIGHT;
   }
   if (value > RIGHT*0.7 && value < RIGHT*1.3) {
     addMLMove(35,0,0);
+    send_to_robot("right");
     return 'RIGHT:' + RIGHT;
   }
   if (value < LEFT*0.7 && value > LEFT*1.3) {
     addMLMove(-35,0,0);
+    send_to_robot("left");
     return 'LEFT:' +LEFT;
   }
   if (value < DOWN*0.7 && value > DOWN*1.3) {
     addMLMove(0,35,0);
+    send_to_robot("down");
     return 'DOWN:' + DOWN;
   }
   if (value > UP*0.7 && value < UP*1.3) {
     addMLMove(0,-35,0);
+    send_to_robot("up");
     return 'UP:' + UP;
   } 
   return 0;

@@ -1,13 +1,16 @@
-var http = require('http');
 
-var finalhandler = require('finalhandler');
-var serveStatic = require('serve-static');
+var express = require('express')
+var cors = require('cors')
+var app = express()
 
-var serve = serveStatic("./");
+app.use(cors())
+app.use('/', express.static('./'))
 
-var server = http.createServer(function(req, res) {
-  var done = finalhandler(req, res);
-  serve(req, res, done);
-});
+app.get('/products/:id', function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for all origins!'})
+})
 
-server.listen(8080);
+app.listen(8080, function () {
+  console.log('CORS-enabled web server listening on port 80')
+})
+
