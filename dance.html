@@ -35,13 +35,15 @@
                     <label id="extraparams" class="lbl">+</label>
                 </div>
                 <div id="params" class="row">
-                    <label  class="lbl">Robot:</label><input name="robot" size="12" class="lbl" value="MOE"/>
+                    <label  class="lbl">Robot:</label><input id="robot_name" size="12" class="lbl" value="MOE"/>
                     <br/>
                     <label  class="lbl">Speed (1-99):</label><input id="speed" type="text" size="3" value="50" class="lbl"/><label  class="lbl">Turn Speed (1-99):</label><input id="turnspeed" type="text" size="3" value="50" class="lbl"/>
                     <br/>
                     <label  class="lbl">Delay MS:</label><input id="delayms" type="text" size="5" value="400" class="lbl"/><label  class="lbl">Sampling Rate:</label><input id="sampllingrate" type="text" size="5" value="30" class="lbl"/>
                     <br/>
                     <label  class="lbl">Predict Mode:</label><input id="predictmode" type="text" size="2" value="0" class="lbl"/>
+                    <label  class="lbl">Send To Robot:</label><input id="send_commands_to_robot" type="text" size="2" value="1" class="lbl"/>
+                    <br/>
                     <button id="loadModel" class="trainbtn" >LOAD MODEL</button><button id="saveModel" class="trainbtn" >SAVE MODEL</button>
                 </div>
                 <div class="row">
@@ -71,11 +73,11 @@
                         </div>
                         
                 </div>
-                <div>
+                <div >
                     <p class="lbl" >4. Train the Model and let ML do the work!</p>
                     <div align="center">
-                    <button id="trainData" class="trainbtn" disabled>TRAIN THE MODEL!</button>
-                </div>
+                        <button id="trainData" class="trainbtn" disabled>TRAIN THE MODEL!</button>
+                    </div>
                 </div>
             </div>
             <div style="float: right;margin-right:20px;">
@@ -98,6 +100,11 @@
         
         <script>
             $(function() {
+                $("#send_commands_to_robot").change(function() {
+                    send_commands_to_robot = $("#send_commands_to_robot").val();
+                });
+                
+                
                 $("#predictmode").change(function() {
                     predict_mode = $("#predictmode").val();
                 });
