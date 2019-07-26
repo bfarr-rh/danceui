@@ -1,105 +1,208 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>MediaElement.js 3.0 - audio/video unification library</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-    <link rel="stylesheet" href="build/mediaelementplayer.css">
-
-    <style>
-
-        html, body {
-            overflow-x: hidden;
-        }
-
-        #container {
-            padding: 0 20px 50px;
-        }
-        .error {
-            color: red;
-        }
-        a {
-            word-wrap: break-word;
-        }
-
-        code {
-            font-size: 0.8em;
-        }
-
-        #player2-container .mejs__time-buffering, #player2-container .mejs__time-current, #player2-container .mejs__time-handle,
-        #player2-container .mejs__time-loaded, #player2-container .mejs__time-hovered, #player2-container .mejs__time-marker, #player2-container .mejs__time-total {
-            height: 2px;
-        }
-
-        #player2-container .mejs__time-total {
-            margin-top: 9px;
-        }
-        #player2-container .mejs__time-handle {
-            left: -5px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #ffffff;
-            top: -5px;
-            cursor: pointer;
-            display: block;
-            position: absolute;
-            z-index: 2;
-            border: none;
-        }
-        #player2-container .mejs__time-handle-content {
-            top: 0;
-            left: 0;
-            width: 12px;
-            height: 12px;
-        }
-    </style>
-</head>
-
-<body>
-
-    <div id="container">
-
-        <div class="players" id="player2-container">
-
-            <h3>Audio Player</h3>
-
-            <p>By default, time handle element is hidden, but in this demo the following styles were added to display it just for audio:</p>
 
 
-            <div class="media-wrapper">
-                <audio id="player2" preload="none" controls style="max-width:100%;" showTimecodeFrameCount="true" timeFormat="mm:ss:ff">
-                    <source src="http://www.largesound.com/ashborytour/sound/AshboryBYU.mp3" type="audio/mp3">
-                </audio>
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
+        <link rel="stylesheet" href="dance.css"/>
+        <script src="envvars.js"></script>
+        <script src="jquery-ui-1.12.1/external/jquery/jquery.js"></script>
+        <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+        <script src="p5.min.js"></script>
+        <script src="p5.dom.min.js"></script>
+        <script src="p5.sound.min.js"></script>
+        <script src="sketch.js"></script>
+    </head>
+
+	<body >
+        <div style="width:100%; margin-left:20px">
+                <img src="images/Logo-RedHat-A-Color-RGB.svg" width="216" height="52" style="width: 162px; height: 39px; position: absolute; left: 20px; top: 5px;">
+            <div align="center">
+                <h1>TRAIN OUR ROBOT TO DANCE! </h1>
             </div>
-            <br>
-            <div>
-                <label>Sources <select name="sources">
-                    <option value="http://www.largesound.com/ashborytour/sound/AshboryBYU.mp3">MP3</option>
-                    <option value="http://www.vorbis.com/music/Hydrate-Kenny_Beltrey.ogg">OGG</option>
-                    <option value="http://db3.indexcom.com/bucket/ram/00/05/64k/05.m3u8">HLS</option>
-                    <!--<option value="rtmp://s3b78u0kbtx79q.cloudfront.net/cfx/st/mp3:fake_empire-cbr">RTMP</option>-->
-                    <!--<option value="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/282715465&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true">SoundCloud</option>-->
-                    <option value="https://api.soundcloud.com/tracks/323195515/stream?client_id=95f22ed54a5c297b1c41f72d713623ef">SoundCloud</option>
-                </select>
-                </label>
-            </div>
-
         </div>
-    </div>
+        <div style="width:100%">
+            <div style="float: left;margin-left:10px;">
+                <div>
+                    <label class="lbl">1. Play a Song:</label><select id="song" class="lbl"><option value="IceIceBaby.m4a">Ice Ice Baby</option>
+                        <option value="AshboryBYU.mp3">AshboryBYU</option></select>
+                    <br/>
+                    <br/>
+                </div>
+                <div class="row">
+                    <p class="lbl" >2. Build a Dance Routine (>15 moves)!</p>
+                </div>
+                
+                <div class="table" >
+                        <div class="row">
+                                <div class="cell1" style="vertical-align: top"><button id="spinleft" class="spinleftbtn">SPIN LEFT!</button></div>
+                                <div ></div>
+                                <div class="cell3" style="vertical-align: top"><button id="spinright" class="spinrightbtn">SPIN RIGHT!</button> </div>
+                        </div>
+                        <div class="row">
+                                <div ></div>
+                            <div class="cell2"><img id="imgup" src="images/arrow-up.png" class="arrow-vert"/></div>
+                            <div ></div>
+                        </div>
+                        <div class="row">
+                            <div class="cell1"><img id="imgleft" src="images/arrow-left.png" class="arrow"/></div>
+                            <div>
+                            </div>
+                            <div class="cell3"><img id="imgright" src="images/arrow-right.png" class="arrow"/></div>
+                        </div>
+                        <div class="row">
+                            <div ></div>
+                            <div class="cell2"><img id="imgdown" src="images/arrow-down.png" class="arrow-vert"/></div>
+                            <div ></div>
+                        </div>
+                        
+                </div>
+            </div>
+            <div style="width:500px;height:580px;float: right;margin-right:10px;">
+                    <div id="sketch-holder" style="width:500px;height: 240px"></div>
+                    <div style="margin-top: 30px;">
+                        <div  align="center">
+                            <p align="center" class="lbl">Your Dance Moves</p>
+                            <div id="ydm" style="width:380px;height: 200px"></div>
+                            <textarea id="stepsBox" rows="15" cols="60" style="display: none;"></textarea>
+                        </div>
+                    </div>
+            </div>
+            <div style="float: left;margin-left:10px;">
+                <label class="lbl">3. Model Name:</label><input id="experimentid" class="lbl" type="text" size="15"/>
+                <br/>
+                <p class="lbl" >4. Train the Model and let ML do the work!</p>
+                <div align="center">
+                    <button id="trainData" class="trainbtn" disabled>TRAIN THE MODEL!</button>
+                </div>
+                <label id="extraparams" class="lbl">+</label>
+                <br/>
+            </div>
+            <div style="width:500px; float: right;margin-right:10px;">
+                <div  align="center">
+                        <p  align="center" class="lbl" >ML Dance Moves</p>
+                        <div id="mldm" style="width:380px;height: 200px"></div>
+                        <textarea id="fftBox" rows="15" cols="60" style="display: none;"></textarea>
+                </div>
+            </div>
+            <div id="params" class="row">
+                <label  class="lbl">Robot:</label><input id="robot_name" size="12" class="lbl" value="MOE"/>
+                <br/>
+                <label  class="lbl">Speed (1-99):</label><input id="speed" type="text" size="3" value="80" class="lbl"/><label  class="lbl">Turn Speed (1-99):</label><input id="turnspeed" type="text" size="3" value="90" class="lbl"/>
+                <br/>
+                <label  class="lbl">Delay MS:</label><input id="delayms" type="text" size="5" value="100" class="lbl"/><label  class="lbl">Sampling Rate:</label><input id="sampllingrate" type="text" size="5" value="30" class="lbl"/>
+                <br/>
+                <label  class="lbl">Predict Mode:</label><input id="predictmode" type="text" size="2" value="0" class="lbl"/>
+                <label  class="lbl">Send To Robot:</label><input id="send_commands_to_robot" type="text" size="2" value="1" class="lbl"/>
+                <br/>
+                <button id="loadModel" class="trainbtn" >LOAD MODEL</button><button id="saveModel" class="trainbtn" >SAVE MODEL</button>
+            </div>
+            
+        </div>
+        
+        <script>
+            $(function() {
+                $("#song").change(function() {
+                    myp5.changeSong($("#song").val());
+                });
+                
+                $("#send_commands_to_robot").change(function() {
+                    send_commands_to_robot = $("#send_commands_to_robot").val();
+                });
+                
+                
+                $("#predictmode").change(function() {
+                    predict_mode = $("#predictmode").val();
+                });
+                $("#sampllingrate").change(function() {
+                    sampling_rate = $("#sampllingrate").val();
+                });
+                
 
-    <script src="build/mediaelement-and-player.js"></script>
-    <script src="build/renderers/dailymotion.js"></script>
-    <script src="build/renderers/facebook.js"></script>
-    <script src="build/renderers/soundcloud.js"></script>
-    <script src="build/renderers/twitch.js"></script>
-    <script src="build/renderers/vimeo.js"></script>
- 
-    <script src="demo.js"></script>
-</body>
+                $("#params").hide();
+                $("#extraparams").click(function() {
+                    if ($("#params").is(":visible")) {
+                        $("#params").hide();
+                        $("#extraparams").html("+");
+                    } else {
+                        $("#params").show();
+                        $("#extraparams").html("-");
+                    }
+                   
+                });
+                $("#loadModel").click(function(){
+                    loadModel();
+                });
+                $("#saveModel").click(function(){
+                    saveModel();
+                });
+                
+
+                
+                $("#stepsBox").change(function() {
+                    $('#trainData').prop('disabled', $('#stepsBox').val().length < 1125)
+                    // Enable after approx 15 moves
+                });
+
+                $("#trainData").click(function(){
+                    trainData();
+                });
+                $("#predictData").click(function(){
+                    predict();
+                });
+                $("#spinleft").click(function(){
+                    var fft = getcurrentfft();
+                    if (fft != '') {
+                        $('#stepsBox').append(fft + ",-360\r"); 
+                        $("#stepsBox").change();
+                        addMove(0,0,-1);
+                    }
+                    
+                });
+                $("#spinright").click(function(){
+                    var fft = getcurrentfft();
+                    if (fft != '') {
+                        $('#stepsBox').append(fft + ",360\r"); 
+                        $("#stepsBox").change();
+                        addMove(0,0,1);
+                    }
+                });
+                $("#imgup").click(function(){
+                    var fft = getcurrentfft();
+                    if (fft != '') {
+                        $('#stepsBox').append(fft + ",180\r"); 
+                        $("#stepsBox").change();
+                        addMove(0,-35,0);
+                    }
+                });
+                $("#imgleft").click(function(){
+                    var fft = getcurrentfft();
+                    if (fft != '') {
+                        $('#stepsBox').append(fft + ",-90\r"); 
+                        $("#stepsBox").change();
+                        addMove(-35,0,0);
+                    }
+                });
+                $("#imgright").click(function(){
+                    var fft = getcurrentfft();
+                    if (fft != '') {
+                        $('#stepsBox').append(fft + ",90\r"); 
+                        $("#stepsBox").change();
+                        addMove(35,0,0);
+                    }
+                });
+                $("#imgdown").click(function(){
+                    var fft = getcurrentfft();
+                    if (fft != '') {
+                        $('#stepsBox').append(fft + ",-180\r");
+                        $("#stepsBox").change();
+                        addMove(0,35,0);
+                    } 
+                });
+            });
+            
+        </script>
+
+	</body>
 </html>
