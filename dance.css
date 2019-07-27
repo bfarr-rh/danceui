@@ -80,3 +80,56 @@ html, body {
     width:90px;
     height:120px;
 }
+.switch-wrapper {
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    margin-left:60px;
+    float:right;
+  }
+
+  .ui-widget-header,.ui-state-default, ui-button {
+    background: #ef2929;
+    border: 1px solid  #ef2929;
+    color: #FFFFFF;
+    font-weight: bold;
+ }
+
+ #speed_slider {
+     float:right;
+    width: 270px;
+    display: inline-block;
+    position: relative;
+    margin-top:10px;
+  }
+  #turnspeed_slider {
+    float:right;
+    width: 270px;
+    display: inline-block;
+    position: relative;
+    margin-top:10px;
+  }
+  #samplerate_slider {
+    float:right;
+    width: 270px;
+    display: inline-block;
+    position: relative;
+    margin-top:10px;
+  }
+  #movedelay_slider {
+    float:right;
+    width: 270px;
+    display: inline-block;
+    position: relative;
+    margin-top:10px;
+  }
+
+
+  #speed_slider .ui-slider-range { background: #729fcf; }
+  #speed_slider .ui-slider-handle { border-color: #729fcf; }
+  #turnspeed_slider .ui-slider-range { background: #729fcf; }
+  #turnspeed_slider .ui-slider-handle { border-color: #729fcf; }
+  #samplerate_slider .ui-slider-range { background: #729fcf; }
+  #samplerate_slider .ui-slider-handle { border-color: #729fcf; }
+  #movedelay_slider .ui-slider-range { background: #729fcf; }
+  #movedelay_slider .ui-slider-handle { border-color: #729fcf; }

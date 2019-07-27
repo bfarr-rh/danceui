@@ -140,10 +140,19 @@ var s = function( p5o ) { // p could be any variable name
 
 var myp5 = new p5(s, 'sketch-holder');
 
+
 var lines = [{x1:190,y1:100,x2:190,y2:100, spin:0}];
 
 var mllines = [{x1:190,y1:100,x2:190,y2:100, spin:0}];
 
+function resetLines() {
+  $('#stepsBox').val('');
+  lines = [{x1:190,y1:100,x2:190,y2:100, spin:0}];
+}
+function resetMLLines() {
+  $('#fftBox').val('');
+  mllines = [{x1:190,y1:100,x2:190,y2:100, spin:0}];
+}
 function addMove(x,y,spin) {
   var x1 = lines[lines.length-1].x2;
   var y1 = lines[lines.length-1].y2;

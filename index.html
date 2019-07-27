@@ -36,9 +36,9 @@
                 
                 <div class="table" >
                         <div class="row">
-                                <div class="cell1" style="vertical-align: top"><button id="spinleft" class="spinleftbtn">SPIN LEFT!</button></div>
+                                <div class="cell1" style="vertical-align: top"><button id="spinleft" class="spinleftbtn ui-button ui-widget ui-corner-all">SPIN LEFT!</button></div>
                                 <div ></div>
-                                <div class="cell3" style="vertical-align: top"><button id="spinright" class="spinrightbtn">SPIN RIGHT!</button> </div>
+                                <div class="cell3" style="vertical-align: top"><button id="spinright" class="spinrightbtn ui-button ui-widget ui-corner-all">SPIN RIGHT!</button> </div>
                         </div>
                         <div class="row">
                                 <div ></div>
@@ -63,8 +63,9 @@
                     <div id="sketch-holder" style="width:500px;height: 240px"></div>
                     <div style="margin-top: 30px;">
                         <div  align="center">
-                            <p align="center" class="lbl">Your Dance Moves</p>
+                            <p align="center" class="lbl">Your Dance Moves </p>
                             <div id="ydm" style="width:380px;height: 200px"></div>
+                            <button style="margin-top:5px" id="clearyourmoves" class="ui-button ui-widget ui-corner-all">Clear</button>
                             <textarea id="stepsBox" rows="15" cols="60" style="display: none;"></textarea>
                         </div>
                     </div>
@@ -74,46 +75,121 @@
                 <br/>
                 <p class="lbl" >4. Train the Model and let ML do the work!</p>
                 <div align="center">
-                    <button id="trainData" class="trainbtn" disabled>TRAIN THE MODEL!</button>
+                    <button id="trainData" class="trainbtn ui-button ui-widget ui-corner-all" disabled>TRAIN THE MODEL!</button>
                 </div>
-                <label id="extraparams" class="lbl">+</label>
+                <button id = "settingsbutton">Settings</button>
                 <br/>
             </div>
             <div style="width:500px; float: right;margin-right:10px;">
                 <div  align="center">
                         <p  align="center" class="lbl" >ML Dance Moves</p>
                         <div id="mldm" style="width:380px;height: 200px"></div>
+                        <button id="clearmlmoves" style="margin-top:5px" class="ui-button ui-widget ui-corner-all">Clear</button>
                         <textarea id="fftBox" rows="15" cols="60" style="display: none;"></textarea>
                 </div>
             </div>
-            <div id="params" class="row">
-                <label  class="lbl">Robot:</label><input id="robot_name" size="12" class="lbl" value="MOE"/>
+            <div id="dialog-params" title = "Settings" style="width:400px;">
+                <div><label  class="lbl">Robot: </label><input id="robot_name" size="20" class="lbl" value="MOE"/></div>
+                <div><label  class="lbl">Speed: </label><input id="speed" type="text" size="3" value="80" class="lbl"/><div id="speed_slider"></div></div>
+                <div><label  class="lbl">Turn Speed: </label><input id="turnspeed" type="text" size="3" value="90" class="lbl"/><div id="turnspeed_slider"></div></div>
+                <div><label  class="lbl">Move Delay: </label><input id="delayms" type="text" size="5" value="100" class="lbl"/><div id="movedelay_slider"></div></div>
+                <div><label  class="lbl">Sampling Rate:</label><input id="sampllingrate" type="text" size="5" value="30" class="lbl"/><div id="samplerate_slider"></div></div>
+                <div><label  class="lbl">Send To Robot: </label><div class="switch-wrapper"><input id="send_commands_to_robot_checkbox" type="checkbox" value="1" checked> </div></div>
                 <br/>
-                <label  class="lbl">Speed (1-99):</label><input id="speed" type="text" size="3" value="80" class="lbl"/><label  class="lbl">Turn Speed (1-99):</label><input id="turnspeed" type="text" size="3" value="90" class="lbl"/>
-                <br/>
-                <label  class="lbl">Delay MS:</label><input id="delayms" type="text" size="5" value="100" class="lbl"/><label  class="lbl">Sampling Rate:</label><input id="sampllingrate" type="text" size="5" value="30" class="lbl"/>
-                <br/>
-                <label  class="lbl">Predict Mode:</label><input id="predictmode" type="text" size="2" value="0" class="lbl"/>
-                <label  class="lbl">Send To Robot:</label><input id="send_commands_to_robot" type="text" size="2" value="1" class="lbl"/>
-                <br/>
-                <button id="loadModel" class="trainbtn" >LOAD MODEL</button><button id="saveModel" class="trainbtn" >SAVE MODEL</button>
+                <div><br/><button id="saveModel" class="ui-button ui-widget ui-corner-all" >SAVE MODEL</button><button id="loadModel" class="ui-button ui-widget ui-corner-all" >LOAD MODEL</button></div>
+                <div><label  class="lbl">Predict Mode: </label><div class="switch-wrapper"><input id="predictmode_checkbox" type="checkbox" value="0" > </div></div>
             </div>
             
         </div>
-        
+
         <script>
+            function refreshSpeed() {
+                $('#speed').val($( "#speed_slider" ).slider( "value" ));
+            }
+            function refreshTurnSpeed() {
+                $('#turnspeed').val($( "#turnspeed_slider" ).slider( "value" ));
+            }
+            function refreshMoveDelay() {
+                $('#delayms').val($( "#movedelay_slider" ).slider( "value" ));
+            }
+            function refreshSampleRate() {
+                $('#sampllingrate').val($( "#samplerate_slider" ).slider( "value" ));
+            }
+            
+            
             $(function() {
+                $( "#movedelay_slider" ).slider({
+                    orientation: "horizontal",
+                    range: "min",
+                    max: 1000,
+                    value: 100,
+                    slide: refreshMoveDelay,
+                    change: refreshMoveDelay
+                });
+                $( "#samplerate_slider" ).slider({
+                    orientation: "horizontal",
+                    range: "min",
+                    max: 150,
+                    value: 30,
+                    slide: refreshSampleRate,
+                    change: refreshSampleRate
+                });
+
+                $( "#speed_slider" ).slider({
+                    orientation: "horizontal",
+                    range: "min",
+                    max: 99,
+                    value: 80,
+                    slide: refreshSpeed,
+                    change: refreshSpeed
+                });
+                $( "#turnspeed_slider" ).slider({
+                    orientation: "horizontal",
+                    range: "min",
+                    max: 99,
+                    value: 90,
+                    slide: refreshTurnSpeed,
+                    change: refreshTurnSpeed
+                });
+                $( "#dialog-params" ).dialog({
+                      autoOpen: false, 
+                      modal: true,
+                      width: 550,
+                      buttons: {
+                         OK: function() {$(this).dialog("close");}
+                      },
+                   });
+                   $( "#settingsbutton" ).click(function() {
+                      $( "#dialog-params" ).dialog( "open" );
+                   });
+
+                $('#clearyourmoves').click(function() {
+                    resetLines()
+                });
+                $('#clearmlmoves').click(function() {
+                    resetMLLines()
+                });
                 $("#song").change(function() {
                     myp5.changeSong($("#song").val());
                 });
                 
-                $("#send_commands_to_robot").change(function() {
-                    send_commands_to_robot = $("#send_commands_to_robot").val();
+                $("#send_commands_to_robot_checkbox").change(function() {
+                    if ($("#send_commands_to_robot_checkbox").is(':checked')) {
+                        send_commands_to_robot = 1;
+                    } else {
+                        send_commands_to_robot = 0;
+                    }
+                    alert("Sending comands to robot:" + send_commands_to_robot);
                 });
                 
                 
-                $("#predictmode").change(function() {
-                    predict_mode = $("#predictmode").val();
+                $("#predictmode_checkbox").change(function() {
+                    if ($("#predictmode_checkbox").is(':checked')) {
+                        predict_mode = 1;
+                    } else {
+                        predict_mode = 0;
+                    }
+                    alert("Predict mode:" + predict_mode);
                 });
                 $("#sampllingrate").change(function() {
                     sampling_rate = $("#sampllingrate").val();
