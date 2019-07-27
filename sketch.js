@@ -26,8 +26,11 @@ var UP = 180;
 var DOWN = -180;
 var sampling_count = 0;
 var predict_mode = 0;
-var send_commands_to_robot = 1;
+var send_commands_to_robot = 0;
 var sampling_rate = 30;
+
+var hits = 0;
+var misses = 0;
 
 jQuery.support.cors = true;
 
@@ -37,14 +40,15 @@ var s = function( p5o ) { // p could be any variable name
   p5o.changeSong = function(songTitle) {
     if (soundFile.isPlaying()){
       soundFile.stop();
-      soundFile = soundFileMap[songTitle];
     }
+    soundFile = soundFileMap[songTitle];
+      alert('mapped sound file' + songTitle);
   };
    p5o.preload = function() {
     p5o.soundFormats('mp3', 'ogg');
     soundFileMap["IceIceBaby.m4a"] = p5o.loadSound('IceIceBaby.m4a');
-    soundFileMap["AshboryBYU.mp3"] = p5o.loadSound('AshboryBYU.mp3');
-    soundFile = soundFileMap["IceIceBaby.m4a"];
+    soundFileMap["YouShookMeAllNightLong.m4a"] = p5o.loadSound('YouShookMeAllNightLong.m4a');
+    soundFile = soundFileMap["YouShookMeAllNightLong.m4a"];
   };
    p5o.setup = function() {
     var canvas = p5o.createCanvas(500, 240); 
@@ -151,6 +155,8 @@ function resetLines() {
 }
 function resetMLLines() {
   $('#fftBox').val('');
+  hits = 0;
+  misses = 0;
   mllines = [{x1:190,y1:100,x2:190,y2:100, spin:0}];
 }
 function addMove(x,y,spin) {
@@ -310,23 +316,37 @@ function send_to_robot(robot_move) {
 
 function doMove(value) {
   if (value < SPIN_LEFT*0.7 && value > SPIN_LEFT*1.3) {
+    hits = hits + 1;
     doMoveInBoundary("spinleft");
-  }
+  } else 
   if (value > SPIN_RIGHT*0.7 && value < SPIN_RIGHT*1.3) {
+    hits = hits + 1;
     doMoveInBoundary("spinright");
-  }
+  } else
   if (value > RIGHT*0.7 && value < RIGHT*1.3) {
+    hits = hits + 1;
     doMoveInBoundary("right");
-  }
+  } else 
   if (value < LEFT*0.7 && value > LEFT*1.3) {
+    hits = hits + 1;
     doMoveInBoundary("left");
-  }
+  } else
   if (value < DOWN*0.7 && value > DOWN*1.3) {
+    hits = hits + 1;
     doMoveInBoundary("down");
-  }
+  } else 
   if (value > UP*0.7 && value < UP*1.3) {
+    hits = hits + 1;
     doMoveInBoundary("up");
-  } 
+  } else {
+    misses = misses + 1;
+  }
+  updateHitsmisses();
+}
+
+function updateHitsmisses() {
+  $("#hitsvalue").html(hits);
+  $("#missesvalue").html(misses);
 }
 
 function doMoveInBoundary(value) {

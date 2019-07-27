@@ -3,7 +3,7 @@ html, body {
     height:100%;
     margin:0;
     padding:0;
-    background-color:#d2d3d5;
+    background-color:#dfe9fc;
 }
 .table {
     display:table;
@@ -57,10 +57,6 @@ html, body {
 }
 
 .trainbtn {
-    background-color:blue;
-    width:180px;
-    height:100px;
-    color:white;
     font-size: 25px;
     text-align: center;
     margin: 0;
