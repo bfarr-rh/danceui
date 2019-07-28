@@ -27,6 +27,8 @@
                 <div>
                     <label class="lbl">1. Play a Song:</label><select id="song" >
                         <option value="YouShookMeAllNightLong.m4a">You Shook Me All Night Long</option>
+                        <option value="UptownFunk.m4a">Uptown Funk</option>
+                        <option value="HighRatedGabruRemix.m4a">High Rated Gabru Remix </option>
                         <option value="IceIceBaby.m4a">Ice Ice Baby</option></select>
                     <br/>
                     <br/>
@@ -72,11 +74,9 @@
                     </div>
             </div>
             <div style="float: left;margin-left:10px;">
-                <label class="lbl">3. Model Name:</label><input id="experimentid" class="lbl" type="text" size="15"/>
-                <br/>
-                <p class="lbl" >4. Train the Model and let ML control moves!</p>
+                <p class="lbl" >3. Train the Model and let ML control moves!</p>
                 <div align="center">
-                    <button id="trainData" class="trainbtn ui-button ui-widget ui-corner-all" disabled>TRAIN THE MODEL!</button>
+                    <button id="trainData" class="trainbtn" disabled>TRAIN THE MODEL!</button>
                 </div>
                 <div align="center">
                     <br/><br/><br/><br/>
@@ -101,6 +101,7 @@
                 <div><label  class="lbl">Sampling Rate:</label><input id="sampllingrate" type="text" size="5" value="30" class="lbl"/><div id="samplerate_slider"></div></div>
                 <div><label  class="lbl">Send To Robot: </label><div class="switch-wrapper"><input id="send_commands_to_robot_checkbox" type="checkbox" value="0" > </div></div>
                 <br/>
+                <div><label class="lbl">Model Name:</label><input id="experimentid" class="lbl" type="text" size="15"/></div>
                 <div><br/><button id="saveModel" class="ui-button ui-widget ui-corner-all" >SAVE MODEL</button><button id="loadModel" class="ui-button ui-widget ui-corner-all" >LOAD MODEL</button></div>
                 <div><label  class="lbl">Predict Mode: </label><div class="switch-wrapper"><input id="predictmode_checkbox" type="checkbox" value="0" > </div></div>
             </div>
@@ -175,7 +176,6 @@
                     resetMLLines()
                 });
                 $("#song").change(function() {
-                    alert('Changin song' + $("#song").val());
                     myp5.changeSong($("#song").val());
                 });
                 
@@ -236,7 +236,7 @@
                 $("#spinleft").click(function(){
                     var fft = getcurrentfft();
                     if (fft != '') {
-                        $('#stepsBox').append(fft + ",-360\r"); 
+                        $('#stepsBox').val( $('#stepsBox').val() + fft + ",-360\r"); 
                         $("#stepsBox").change();
                         addMove(0,0,-1);
                     }
@@ -245,7 +245,7 @@
                 $("#spinright").click(function(){
                     var fft = getcurrentfft();
                     if (fft != '') {
-                        $('#stepsBox').append(fft + ",360\r"); 
+                        $('#stepsBox').val( $('#stepsBox').val() + fft + ",360\r"); 
                         $("#stepsBox").change();
                         addMove(0,0,1);
                     }
@@ -253,7 +253,7 @@
                 $("#imgup").click(function(){
                     var fft = getcurrentfft();
                     if (fft != '') {
-                        $('#stepsBox').append(fft + ",180\r"); 
+                        $('#stepsBox').val( $('#stepsBox').val() + fft + ",180\r"); 
                         $("#stepsBox").change();
                         addMove(0,-35,0);
                     }
@@ -261,7 +261,7 @@
                 $("#imgleft").click(function(){
                     var fft = getcurrentfft();
                     if (fft != '') {
-                        $('#stepsBox').append(fft + ",-90\r"); 
+                        $('#stepsBox').val( $('#stepsBox').val() + fft + ",-90\r"); 
                         $("#stepsBox").change();
                         addMove(-35,0,0);
                     }
@@ -269,7 +269,7 @@
                 $("#imgright").click(function(){
                     var fft = getcurrentfft();
                     if (fft != '') {
-                        $('#stepsBox').append(fft + ",90\r"); 
+                        $('#stepsBox').val( $('#stepsBox').val() + fft + ",90\r"); 
                         $("#stepsBox").change();
                         addMove(35,0,0);
                     }
@@ -277,7 +277,7 @@
                 $("#imgdown").click(function(){
                     var fft = getcurrentfft();
                     if (fft != '') {
-                        $('#stepsBox').append(fft + ",-180\r");
+                        $('#stepsBox').val( $('#stepsBox').val() + fft + ",-180\r");
                         $("#stepsBox").change();
                         addMove(0,35,0);
                     } 

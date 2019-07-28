@@ -42,12 +42,13 @@ var s = function( p5o ) { // p could be any variable name
       soundFile.stop();
     }
     soundFile = soundFileMap[songTitle];
-      alert('mapped sound file' + songTitle);
   };
    p5o.preload = function() {
     p5o.soundFormats('mp3', 'ogg');
     soundFileMap["IceIceBaby.m4a"] = p5o.loadSound('IceIceBaby.m4a');
     soundFileMap["YouShookMeAllNightLong.m4a"] = p5o.loadSound('YouShookMeAllNightLong.m4a');
+    soundFileMap["UptownFunk.m4a"] = p5o.loadSound('UptownFunk.m4a');
+    soundFileMap["HighRatedGabruRemix.m4a"] = p5o.loadSound('HighRatedGabruRemix.m4a');
     soundFile = soundFileMap["YouShookMeAllNightLong.m4a"];
   };
    p5o.setup = function() {
@@ -151,7 +152,9 @@ var mllines = [{x1:190,y1:100,x2:190,y2:100, spin:0}];
 
 function resetLines() {
   $('#stepsBox').val('');
+  $("#stepsBox").change();
   lines = [{x1:190,y1:100,x2:190,y2:100, spin:0}];
+  predict_mode = 0;
 }
 function resetMLLines() {
   $('#fftBox').val('');
